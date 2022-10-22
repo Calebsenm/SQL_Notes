@@ -1,0 +1,112 @@
+How to Import a CSV File to a MySQL Database
+Author's photo
+Martyna Sławińska
+Sql
+Csv
+CSV files store and transfer data between databases. Read on to find out how easy it is to work with CSV files in a MySQL database.
+
+CSV files are one of the oldest data exchange formats and are still heavily used by IT professionals from various domains. It is common for online data resources and different database software to offer their data uploads and downloads in CSV format.
+
+In this article, we’ll briefly review what a CSV file is and how to work with it. You’ll learn how to import a CSV file into a MySQL database using either a command line tool or a Graphical User Interface like MySQL Workbench. Although the latter is much faster and easier, both are important to know and practice.
+
+LearnSQL.com provides a comprehensive learning experience when it comes to learning SQL. With 30 interactive courses at various levels, the platform will help you to learn the skills you need to tackle reporting in SQL with confidence.
+
+If you haven’t worked with a MySQL database before, make sure to check out our interactive courses:
+
+The SQL Basics in MySQL course includes 126 exercises that cover selecting, querying, aggregating, and grouping data as well as JOINs and
+The How to INSERT, UPDATE, or DELETE Data in MySQL course includes 70 exercises where you insert, update, and delete table records.
+Both the courses end with a quiz so you can verify how much you’ve learned. You can also follow this article to learn how to install a MySQL database on a Windows PC. It’s not necessary for either course, but having a MySQL database on your computer will give you something to practice on later.
+
+So, let’s get started with our review of the CSV file format.
+
+About CSV Files
+CSV stands for “Comma-Separated Values”. A CSV file is a text file that stores tabular data. Each row of a CSV file represents a row of a table. Usually, the column values are separated by a comma (hence the name, comma-separated values), but you can use other separators, such as a semi-colon or a tab. Typically, the first row of a CSV file stores column headers and the following rows store data.
+
+Now you may wonder what happens if a value contains a comma character. It is treated as a special case: the value is wrapped in double quotation marks. For example, the value 12.34 goes without double quotation marks, but the value 12,34 must be written as "12,34" to prevent it from being considered as two values (12 and 34) instead of one value (12,34).
+
+Let’s look at a sample CSV file called countries.csv that we’ll later import into the MySQL database.
+
+id,country,population,capital
+1,USA,"329,500,000",Washington D.C.
+2,Canada,"38,010,000",Ottawa
+3,UK,"67,220,000",London
+4,Spain,"47,350,000",Madrid
+5,Greenland,"56,367",Nuuk
+It might not be as clear as a table, but you can definitely see the pattern. The first row stores comma-separated column headers, and the following rows store comma-separated values. Please note that any value containing a comma character is enclosed in double quotation marks.
+
+And here is a table based on the countries.csv file:
+
+id	country	population	capital
+1	USA	329,500,000	Washington D.C.
+2	Canada	38,010,000	Ottawa
+3	UK	67,220,000	London
+4	Spain	47,350,000	Madrid
+5	Greenland	56,367	Nuuk
+Why Import a CSV File into a Database?
+CSV files use a simple text format to store data. Relational databases and CSV files were first developed around the same time in the 1970s. Since then, CSV files have been used to transfer data between databases.
+
+We can export data in a CSV file format from one database and import it in this format into another database (e.g. for further processing and analysis). Also, various online data resources and database tools offer data uploads and downloads in CSV format. Hence, CSV is a very common file format for transferring data.
+
+The process of CSV file import is fast and straightforward. It is much better than creating a table and inserting the data manually. That’s why CSV files, despite their simple nature, play such a crucial role in data processing and analysis.
+
+Importing a CSV File into a MySQL Database
+In the MySQL database, there are two options to import a CSV file. One is to use a command line tool and another is to use a Graphical User Interface, or GUI. Let’s take a look at each one.
+
+Importing a CSV File into MySQL Using Command Line
+Follow the steps below to import a CSV file into the MySQL database via the command line tool.
+
+Connecting a Database
+Assuming that you have a working MySQL database installed on your computer, you can use the MySQL Command Line Client (shown below):
+
+Import a CSV File to a MySQL Database
+You can connect your database by executing the mysql --host=localhost --user=username --password command and providing a password:
+
+Import a CSV File to a MySQL Database
+Please note that both the MySQL Command Line Client and the standard command line tool provide the same mysql prompt.
+
+Importing a CSV File
+Before importing a CSV file, you need to create a table manually with proper data types for each column.
+
+So first let’s create a new schema using the CREATE SCHEMA command. Then we’ll execute the USE command to make sure you are inside your newly created schema. Last, we’ll create a new table using the CREATE TABLE command.
+
+CREATE SCHEMA data;
+USE data;
+CREATE TABLE `countries` (
+`id` int DEFAULT NULL,
+`country` text,
+`population` text,
+`capital` text);
+The CREATE SCHEMA command followed by a schema name creates a new schema named data. And the USE command followed by a schema name ensures that we work inside the newly created schema. After completing these, we create a new table using the CREATE TABLE command.
+
+Now we can load the countries table with the data from our CSV file.
+
+LOAD DATA INFILE 'countries.csv'
+INTO TABLE countries
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+This command specifies the following:
+
+The file from which the data is loaded: LOAD DATA INFILE 'countries.csv'
+The table into which the data is loaded: INTO TABLE countries
+The character that separates the values: FIELDS TERMINATED BY ','
+Please note that if you use a different separator, like a semi-colon or a tab, you should update this line to include your separating character: FIELDS TERMINATED BY ';' or FIELDS TERMINATED BY '  '
+
+If some or all of the values are enclosed in double quotation marks, include this line: ENCLOSED BY '"'
+The character that terminates the lines: LINES TERMINATED BY '\n'
+The information to ignore the first row, which contains the header: IGNORE 1 ROWS;
+Here is the console output of all the commands:
+
+Import a CSV File to a MySQL Database
+Let’s verify the import process by executing the SELECT statement.
+
+The command line returns a proper dataset, although the formatting might get disrupted:
+
+Import a CSV File to a MySQL Database
+Let’s verify the same using the GUI interface.
+
+Import a CSV File to a MySQL Database
+Now we are sure that the import process succeeded.
+
+Let’s see how to do the same using the GUI.

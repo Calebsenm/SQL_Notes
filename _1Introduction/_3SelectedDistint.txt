@@ -1,0 +1,76 @@
+The SQL SELECT DISTINCT Statement
+The SELECT DISTINCT statement is used to return only distinct (different) values.
+
+Inside a table, a column often contains many duplicate values; and sometimes you only want to list the different (distinct) values.
+
+SELECT DISTINCT Syntax
+SELECT DISTINCT column1, column2, ...
+FROM table_name;
+
+
+// this is for not repeates names ETC
+
+SELECT DISTINCT column1, column2, ...
+FROM table_name;
+
+mysql> SELECT  City FROM Customers;
++---------+
+| City    |
++---------+
+| Berlin  |
+| Berlin  |
+| Berlin1 |
+| Berlin1 |
+| Berlin1 |
+| Berlin1 |
+| Berlin1 |
+| Berlin1 |
+| Berlin1 |
+| Berlin1 |
+| Berlin1 |
+| Berlin1 |
+| Berlin1 |
+| Madri   |
+| Tomate  |
+| Tomate  |
++---------+
+
+
+
+mysql> SELECT DISTINCT City FROM Customers;
++---------+
+| City    |
++---------+
+| Berlin  |
+| Berlin1 |
+| Madri   |
+| Tomate  |
++---------+
+4 rows in set (0.01 sec)
+
+
+
+
+
+
+The following SQL statement lists the number of different (distinct) customer countries:
+
+Example
+SELECT COUNT(DISTINCT Country) FROM Customers;
+
+mysql> SELECT COUNT(DISTINCT Country) FROM Customers;
++-------------------------+
+| COUNT(DISTINCT Country) |
++-------------------------+
+|                       4 |
++-------------------------+
+1 row in set (0.11 sec)
+//-----------------------------------------------------------------------------------------------------------------------
+
+Here is the workaround for MS Access:
+
+Example
+SELECT Count(*) AS DistinctCountries
+FROM (SELECT DISTINCT Country FROM Customers);
+
+

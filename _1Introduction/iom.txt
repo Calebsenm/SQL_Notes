@@ -1,0 +1,9 @@
+LOAD DATA INFILE '/var/lib/mysql-files/_OOOCustomers.csv'
+INTO TABLE Customers
+FIELDS TERMINATED BY ' '
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+ _OOOCustomers.csv
+CustomerID;     CustomerName; ContactName;      Address City;   PostalCode;     Country
