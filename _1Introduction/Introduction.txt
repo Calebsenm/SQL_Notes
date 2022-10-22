@@ -1,0 +1,53 @@
+
+
+// this is the introduccion for use mysql frim wsl 
+
+
+
+// for star mysql 
+
+sudo mysql -u root -p
+sudo mysql -u root -p
+
+// this is for create the data base
+CREATE DATABASE name;
+
+// this is for show the databases creadted
+
+show databases;
+
+
+// Create a new database user with permissions
+Next, create a user with permission to access the new database. In this example, create the user techtargetuser with the command:
+
+CREATE USER 'techtargetuser'@'localhost' IDENTIFIED BY 'PASSWORD';
+
+
+// this is create a table 
+
+
+CREATE TABLE Customers(
+	CustoderId  int,
+	CustomerName varchar(255),
+	ContactName varchar(255),
+	Address varchar(255),
+	City varchar(255),
+	PostalCode varchar(255),
+	Country   varchar(255)
+);
+
+
+// this is for insert someting inside of the table
+
+INSERT INTO Customers  (CustoderId  ,CustomerName,ContactName,Address,City,PostalCode,Country)
+VALUES ("1","Caleb" , "Calseme", "Obere Str. 57","Berlin"," 12209", "Germany" );
+
+INSERT INTO Customers  (CustoderId  ,CustomerName,ContactName,Address,City,PostalCode,Country)
+VALUES ("2","Caleb1 " , "Calseme1 ", "Obere Str. 571","Berlin1"," 122091", "Germany1");
+
+
+yes this is the basics 
+
+
+
+
