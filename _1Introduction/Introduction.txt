@@ -5,7 +5,7 @@
 
 
 // for star mysql 
-
+sudo /etc/init.d/mysql start
 sudo mysql -u root -p
 sudo mysql -u root -p
 
